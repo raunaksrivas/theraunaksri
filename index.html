@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Raunak Srivastava · The Signal · Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --void:#070203;--panel:#150608;--panel-soft:rgba(21,6,8,.78);--line:#3a0f12;
+  --line-soft:rgba(58,15,18,.55);--laser:#e53935;--neon:#ff4d4d;--ember:#ff8a50;
+  --bone:#f2ede8;--bone-dim:rgba(242,237,232,.62);--bone-faint:rgba(242,237,232,.38);
+  --fd:'Unbounded',sans-serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);--p:0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--bone);font-family:var(--fb);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(229,57,53,.35)}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--neon);outline-offset:3px;border-radius:4px}
+#c{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 42%,transparent 52%,rgba(2,0,1,.55) 100%)}
+.story{position:relative;z-index:2}
+.chapter{position:relative;padding:0 clamp(20px,6vw,96px)}
+.inner{max-width:1180px;margin:0 auto}
+.eyebrow{font-family:var(--fm);font-size:clamp(.66rem,1.1vw,.8rem);font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--laser);display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:'';width:34px;height:1px;background:linear-gradient(90deg,var(--laser),transparent)}
+.title{font-family:var(--fd);font-weight:700;text-transform:uppercase;line-height:1.04;letter-spacing:-.01em;font-size:clamp(1.9rem,5.4vw,4.6rem);margin:22px 0 26px}
+.title .a{color:var(--neon)}
+.mono-copy{max-width:620px;color:var(--bone-dim);font-size:clamp(.98rem,1.5vw,1.14rem);line-height:1.75}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s);will-change:opacity,transform}
+.reveal.in{opacity:1;transform:none}
+
+.ch1{min-height:180vh}
+.ch1-stage{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:16vh;padding-bottom:10vh}
+.name{font-family:var(--fm);font-size:clamp(.72rem,1.2vw,.85rem);letter-spacing:.4em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:18px}
+.ch1 .title{font-size:clamp(2.3rem,7vw,6.2rem);max-width:14ch}
+.cue{margin-top:9vh;display:inline-flex;align-items:center;gap:16px;font-family:var(--fm);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-faint)}
+.cue .beam{width:1px;height:52px;background:linear-gradient(180deg,var(--neon),transparent);position:relative;overflow:hidden}
+.cue .beam::after{content:'';position:absolute;left:0;top:-40%;width:100%;height:40%;background:var(--bone);animation:drop 2.2s var(--ease) infinite}
+@keyframes drop{0%{top:-40%;opacity:0}30%{opacity:1}100%{top:110%;opacity:0}}
+.currents{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14vh;padding-bottom:14vh}
+.card{background:var(--panel-soft);border:1px solid var(--line);border-radius:16px;padding:28px 26px;backdrop-filter:blur(14px);transition:border-color .4s,transform .5s var(--ease),box-shadow .5s}
+.card:hover{border-color:rgba(255,77,77,.55);transform:translateY(-5px);box-shadow:0 24px 60px rgba(229,57,53,.1)}
+.code{font-family:var(--fm);font-size:.66rem;letter-spacing:.28em;color:var(--laser);margin-bottom:16px}
+.card h3{font-family:var(--fd);font-size:clamp(1rem,1.6vw,1.2rem);font-weight:500;text-transform:uppercase;margin-bottom:14px;line-height:1.3}
+.card p{color:var(--bone-dim);font-size:.94rem;line-height:1.7}
+
+.ch2{min-height:240vh;padding-bottom:12vh}
+.ch2-head{min-height:64vh;display:flex;flex-direction:column;justify-content:center}
+.stations{margin-top:10vh;display:flex;flex-direction:column;gap:12vh}
+.station{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.station:nth-child(even) .scard{grid-column:2}
+.station:nth-child(odd) .scard{grid-column:1}
+.scard{background:var(--panel-soft);border:1px solid var(--line);border-left:2px solid var(--laser);border-radius:14px;padding:26px 28px;backdrop-filter:blur(14px);max-width:540px}
+.sidx{font-family:var(--fm);font-size:.66rem;letter-spacing:.3em;color:var(--laser);display:flex;align-items:center;gap:10px}
+.sidx::after{content:'';flex:1;height:1px;background:var(--line-soft)}
+.srole{font-family:var(--fd);font-size:clamp(1.02rem,1.7vw,1.25rem);font-weight:500;text-transform:uppercase;margin:14px 0 6px;line-height:1.3}
+.sco{color:var(--neon);font-weight:600;font-size:.95rem}
+.smeta{font-family:var(--fm);font-size:.7rem;letter-spacing:.12em;color:var(--bone-faint);margin:8px 0 16px}
+.spts{list-style:none;display:flex;flex-direction:column;gap:10px}
+.spts li{position:relative;padding-left:20px;color:var(--bone-dim);font-size:.92rem;line-height:1.65}
+.spts li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--laser)}
+
+.ch3{min-height:220vh;padding-bottom:14vh}
+.ch3-head{min-height:58vh;display:flex;flex-direction:column;justify-content:center}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:10vh 0 12vh}
+.metric{border:1px solid var(--line);border-radius:14px;background:rgba(15,3,4,.6);backdrop-filter:blur(12px);padding:24px 22px}
+.mval{font-family:var(--fd);font-weight:700;font-size:clamp(2rem,4.6vw,3.4rem);color:var(--neon);line-height:1;font-variant-numeric:tabular-nums}
+.mlab{margin-top:10px;font-size:.82rem;color:var(--bone-faint);line-height:1.55}
+.shelf{font-family:var(--fm);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-faint);margin:9vh 0 24px;display:flex;align-items:center;gap:14px}
+.shelf::after{content:'';flex:1;height:1px;background:var(--line-soft)}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cases.str{grid-template-columns:repeat(2,1fr)}
+.ccard{text-align:left;display:flex;flex-direction:column;background:var(--panel-soft);border:1px solid var(--line);border-radius:16px;padding:26px 24px;backdrop-filter:blur(14px);transition:border-color .4s,transform .5s var(--ease),box-shadow .5s}
+.ccard:hover{border-color:rgba(255,77,77,.6);transform:translateY(-6px);box-shadow:0 28px 70px rgba(229,57,53,.12)}
+.ctop{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--fm);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;margin-bottom:16px}
+.ctop .cd{color:var(--laser)}.ctop .cat{color:var(--bone-faint);text-align:right}
+.ccard h3{font-family:var(--fd);font-size:clamp(1rem,1.5vw,1.15rem);font-weight:500;text-transform:uppercase;line-height:1.32;margin-bottom:12px}
+.ccard .sum{color:var(--bone-dim);font-size:.9rem;line-height:1.65;flex:1}
+.open{margin-top:20px;font-family:var(--fm);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--neon);display:inline-flex;align-items:center;gap:8px}
+.open::after{content:'\2192';transition:transform .3s var(--ease)}
+.ccard:hover .open::after{transform:translateX(5px)}
+
+.ch4{min-height:120vh;padding-bottom:10vh}
+.ch4-head{min-height:52vh;display:flex;flex-direction:column;justify-content:center}
+.rings{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8vh}
+.ring{text-align:left;background:var(--panel-soft);border:1px solid var(--line);border-radius:16px;padding:26px;backdrop-filter:blur(14px);transition:border-color .35s,transform .45s var(--ease)}
+.ring:hover,.ring.hot{border-color:rgba(255,77,77,.55);transform:translateY(-4px)}
+.rtop{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+.rcode{font-family:var(--fm);font-size:.66rem;letter-spacing:.28em;color:var(--laser)}
+.rcount{font-family:var(--fm);font-size:.66rem;color:var(--bone-faint)}
+.ring h3{font-family:var(--fd);font-size:clamp(1rem,1.5vw,1.18rem);font-weight:500;text-transform:uppercase;margin-bottom:16px}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--fm);font-size:.62rem;letter-spacing:.06em;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--bone-faint);background:rgba(58,15,18,.25)}
+.found{margin-top:11vh;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.fcard{border:1px solid var(--line);border-radius:14px;background:rgba(15,3,4,.6);padding:22px 20px;backdrop-filter:blur(12px)}
+.fbadge{display:inline-flex;align-items:center;justify-content:center;min-width:46px;height:30px;padding:0 10px;border-radius:8px;font-family:var(--fm);font-size:.68rem;font-weight:600;color:var(--neon);background:rgba(229,57,53,.12);border:1px solid rgba(229,57,53,.3);margin-bottom:14px}
+.fcard h4{font-size:.92rem;font-weight:700;line-height:1.4;margin-bottom:6px}
+.fcard .inst{color:var(--bone-dim);font-size:.8rem;line-height:1.5}
+.fcard .yr{font-family:var(--fm);font-size:.66rem;letter-spacing:.14em;color:var(--bone-faint);margin-top:8px}
+
+.echoes{min-height:60vh;display:flex;align-items:center;padding:8vh 0}
+.egrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;width:100%}
+.echo{border:1px solid var(--line);border-radius:18px;background:rgba(15,3,4,.66);backdrop-filter:blur(14px);padding:clamp(24px,3vw,36px);position:relative;overflow:hidden}
+.echo::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,77,77,.6),transparent)}
+.emark{font-family:var(--fm);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--laser);margin-bottom:18px}
+.echo p{color:var(--bone-dim);font-size:.95rem;line-height:1.75;margin-bottom:12px}
+.echo p:first-of-type{color:var(--bone)}
+.eauth{font-weight:700;font-size:.95rem;margin-top:18px}
+.etitle{color:var(--bone-dim);font-size:.8rem;margin-top:2px}
+.erel{font-family:var(--fm);font-size:.64rem;letter-spacing:.1em;color:var(--bone-faint);margin-top:8px}
+
+.ch5{min-height:180vh;display:flex;flex-direction:column}
+.ch5-stage{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:150vh;padding-top:20vh}
+.ch5 .title{max-width:16ch}
+.hopen{max-width:560px;color:var(--bone-dim);font-size:clamp(.98rem,1.5vw,1.12rem);line-height:1.75;margin-top:8px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:6vh}
+.action{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border-radius:999px;font-family:var(--fm);font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border:1px solid var(--line);color:var(--bone);background:rgba(21,6,8,.7);backdrop-filter:blur(12px);transition:border-color .35s,transform .4s var(--ease),box-shadow .4s,background .35s}
+.action:hover{border-color:rgba(255,77,77,.65);transform:translateY(-3px);box-shadow:0 18px 44px rgba(229,57,53,.16)}
+.action.primary{background:linear-gradient(135deg,#e53935,#b3261e);border-color:transparent;color:#fff}
+.note{font-family:var(--fm);font-size:.66rem;letter-spacing:.2em;color:var(--ember);margin-top:14px;min-height:1.2em}
+.status{margin-top:9vh;display:flex;flex-wrap:wrap;gap:10px 26px;font-family:var(--fm);font-size:.66rem;letter-spacing:.18em;color:var(--bone-faint)}
+.status span{display:inline-flex;align-items:center;gap:8px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px var(--neon);animation:pd 2s ease-in-out infinite}
+@keyframes pd{0%,100%{opacity:1}50%{opacity:.35}}
+.footer{padding:5vh 0 6vh;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;border-top:1px solid var(--line-soft);font-family:var(--fm);font-size:.64rem;letter-spacing:.16em;color:var(--bone-faint)}
+.footer a{color:var(--bone-dim);text-decoration:none}.footer a:hover{color:var(--neon)}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,44px);pointer-events:none}
+.topbar>*{pointer-events:auto}
+.mg{font-family:var(--fd);font-weight:700;font-size:.95rem;letter-spacing:.18em;text-decoration:none}
+.mg .t{color:var(--neon)}
+.tact{display:flex;gap:10px}
+.chip{font-family:var(--fm);font-size:.64rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(15,3,4,.62);backdrop-filter:blur(12px);color:var(--bone-dim);text-decoration:none;transition:color .3s,border-color .3s}
+.chip:hover{color:var(--bone);border-color:rgba(255,77,77,.5)}
+.chip.solid{background:var(--laser);border-color:transparent;color:#fff}
+
+.rail{position:fixed;right:clamp(14px,2.4vw,34px);top:50%;transform:translateY(-50%);z-index:40}
+.rtrack{position:relative;width:2px;height:240px;background:rgba(58,15,18,.7);border-radius:2px}
+.rfill{position:absolute;top:0;left:0;width:100%;height:calc(var(--p)*100%);background:linear-gradient(180deg,var(--ember),var(--laser));border-radius:2px}
+.rpulse{position:absolute;left:50%;top:calc(var(--p)*100%);transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%;background:var(--neon);box-shadow:0 0 14px var(--neon),0 0 4px #fff}
+.rnodes{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+.rnode{width:22px;height:22px;display:grid;place-items:center;position:relative}
+.rnode::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .3s,box-shadow .3s,transform .3s}
+.rnode[aria-current=true]::before{background:var(--neon);box-shadow:0 0 12px var(--neon);transform:scale(1.25)}
+.pbar{position:fixed;top:0;left:0;height:2px;width:calc(var(--p)*100%);background:linear-gradient(90deg,var(--ember),var(--neon));z-index:45;display:none}
+
+.dbg{position:fixed;inset:0;z-index:60;background:rgba(4,1,1,.78);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;animation:fi .3s ease both}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.dossier{width:min(720px,100%);max-height:86vh;overflow-y:auto;background:linear-gradient(160deg,#190709,#0d0203);border:1px solid var(--line);border-radius:20px;padding:clamp(26px,4vw,44px);position:relative;box-shadow:0 40px 120px rgba(0,0,0,.7)}
+.dclose{float:right;font-family:var(--fm);font-size:.7rem;letter-spacing:.24em;color:var(--bone-faint);padding:8px 12px;border:1px solid var(--line);border-radius:999px}
+.dclose:hover{color:var(--neon)}
+.dossier h2{font-family:var(--fd);font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:600;text-transform:uppercase;line-height:1.25;margin:8px 0 22px;max-width:18ch}
+.dsec{margin-bottom:22px}
+.dsec h4{font-family:var(--fm);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--laser);margin-bottom:8px}
+.dsec p{color:var(--bone-dim);font-size:.95rem;line-height:1.7}
+
+.banner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:50;font-family:var(--fm);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);background:rgba(15,3,4,.8);border:1px solid var(--line);border-radius:999px;padding:8px 16px;backdrop-filter:blur(10px)}
+
+@media(max-width:1020px){.currents{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.cases{grid-template-columns:repeat(2,1fr)}.found{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:960px){.rail{display:none}.pbar{display:block}}
+@media(max-width:760px){.station{grid-template-columns:1fr}.station .scard{grid-column:1!important}.cases,.cases.str{grid-template-columns:1fr}.rings{grid-template-columns:1fr}.egrid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{transition-duration:.01ms;transform:none}.cue .beam::after,.dot{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+<span class="pbar" aria-hidden="true"></span>
+
+<header class="topbar">
+  <a class="mg" href="#ch1" aria-label="Beginning">RS<span class="t">_</span></a>
+  <nav class="tact">
+    <a class="chip" href="#ch3">Index</a>
+    <a class="chip solid" href="#ch5">Contact</a>
+  </nav>
+</header>
+
+<nav class="rail" aria-label="Chapters">
+  <div class="rtrack">
+    <span class="rfill"></span><span class="rpulse"></span>
+    <div class="rnodes">
+      <a class="rnode" href="#ch1" data-s="ch1" aria-current="true"></a>
+      <a class="rnode" href="#ch2" data-s="ch2"></a>
+      <a class="rnode" href="#ch3" data-s="ch3"></a>
+      <a class="rnode" href="#ch4" data-s="ch4"></a>
+      <a class="rnode" href="#ch5" data-s="ch5"></a>
+    </div>
+  </div>
+</nav>
+
+<main class="story">
+  <!-- CH1 -->
+  <section id="ch1" class="chapter ch1">
+    <div class="inner">
+      <div class="ch1-stage reveal">
+        <p class="name">Raunak Srivastava · Strategy Advisor · AI Strategist</p>
+        <span class="eyebrow">CH.01 // THE SIGNAL</span>
+        <h1 class="title">Every system begins with a <span class="a">signal.</span></h1>
+        <p class="mono-copy">Before the pipelines, before the playbooks, there is a single idea moving through the dark, looking for a circuit to run on. I am Raunak Srivastava. I build AI systems that eliminate inefficiency, automate operations, and free businesses to scale. This is the world those systems come from. Keep scrolling. Follow the signal.</p>
+        <div class="cue"><span class="beam"></span><span>Scroll to descend</span></div>
+      </div>
+      <div class="currents">
+        <article class="card reveal"><p class="code">CURRENT.A</p><h3>AI Automation Engineering</h3><p>I design and deploy end to end AI automation systems using n8n, Make.com, GPT-4, Claude, and WhatsApp API. From lead generation agents to enterprise workflow automation, I replace manual operations with intelligent pipelines.</p></article>
+        <article class="card reveal" style="--d:.08s"><p class="code">CURRENT.B</p><h3>Growth Marketing Systems</h3><p>Full funnel performance marketing across Google, YouTube, and LinkedIn Ads. HubSpot CRM automation, AI personalized cold outreach, SEO, AEO and GEO audits, and data driven campaign systems that reduce CAC and grow pipeline.</p></article>
+        <article class="card reveal" style="--d:.16s"><p class="code">CURRENT.C</p><h3>Strategy Consulting</h3><p>Enterprise client advisory, international market entry strategy, competitive intelligence, and stakeholder management. From board ready consulting decks to on ground project execution across energy, aerospace, and infrastructure sectors.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH2 -->
+  <section id="ch2" class="chapter ch2">
+    <div class="inner">
+      <div class="ch2-head reveal">
+        <span class="eyebrow">CH.02 // THE CIRCUIT</span>
+        <h2 class="title">A signal is shaped by the <span class="a">path</span> it travels.</h2>
+        <p class="mono-copy">Seven stations across four years. From the billing halls of Indian Railways to a remote growth desk in the United States, every stop rerouted the current: new constraints, new stakeholders, new scale. Move down the line and watch what each station added.</p>
+      </div>
+      <div class="stations" id="stations"></div>
+    </div>
+  </section>
+
+  <!-- CH3 -->
+  <section id="ch3" class="chapter ch3">
+    <div class="inner">
+      <div class="ch3-head reveal">
+        <span class="eyebrow">CH.03 // THE PAYLOAD</span>
+        <h2 class="title">What the signal <span class="a">carries</span> is what counts.</h2>
+        <p class="mono-copy">Strategy that never ships is static. These payloads made it to production: automation grids that erased manual work, audit systems that rewired search visibility, market entries signed into MOUs. Open the case files. Here, the numbers are part of the architecture.</p>
+      </div>
+      <div class="metrics" id="metrics"></div>
+      <p class="shelf">Shelf A · Systems shipped</p>
+      <div class="cases" id="sys"></div>
+      <p class="shelf">Shelf B · Strategy delivered</p>
+      <div class="cases str" id="str"></div>
+    </div>
+  </section>
+
+  <!-- CH4 -->
+  <section id="ch4" class="chapter ch4">
+    <div class="inner">
+      <div class="ch4-head reveal">
+        <span class="eyebrow">CH.04 // THE ENGINE</span>
+        <h2 class="title">Skill is a <span class="a">machine</span> assembled over years.</h2>
+        <p class="mono-copy">Underneath every launch is the engine room. Models and pipelines on one ring. Channels and funnels on another. Analytics and code keeping time. Strategy holding the frame. Reach for a ring and it answers.</p>
+      </div>
+      <div class="rings" id="rings"></div>
+      <div class="found" id="found"></div>
+    </div>
+  </section>
+
+  <!-- ECHOES -->
+  <section id="echoes" class="chapter echoes">
+    <div class="inner" style="width:100%">
+      <div class="egrid" id="echoes-grid"></div>
+    </div>
+  </section>
+
+  <!-- CH5 -->
+  <section id="ch5" class="chapter ch5">
+    <div class="inner" style="display:flex;flex-direction:column;flex:1">
+      <div class="ch5-stage reveal">
+        <span class="eyebrow">CH.05 // THE HORIZON</span>
+        <h2 class="title">The next system is <span class="a">not built yet.</span></h2>
+        <p class="mono-copy">Somewhere ahead there is an operation drowning in manual work, a product still searching for its market, a founder who needs leverage more than headcount. That is where this signal is headed. If it sounds like yours, route it to me.</p>
+        <p class="hopen">Open to AI automation consulting, growth marketing strategy, technical PM roles, and founding team opportunities.</p>
+        <div class="actions">
+          <a class="action primary" href="mailto:srivastava.raunak7@gmail.com">Send the brief</a>
+          <button class="action" id="copyEmail">Copy email</button>
+          <a class="action" href="https://linkedin.com/in/theraunaksri" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="note" id="note">&nbsp;</p>
+        <div class="status">
+          <span><span class="dot"></span>STATUS: OPEN_FOR_ENGAGEMENTS</span>
+          <span>LOC: NEW_DELHI_IN</span>
+          <span>TYPICAL_RESPONSE: 24H</span>
+        </div>
+      </div>
+      <footer class="footer">
+        <span id="yr">Raunak Srivastava · Built as one continuous signal</span>
+        <span><a href="https://linkedin.com/in/theraunaksri" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/theraunaksri" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.behance.net/raunaksrivast3" target="_blank" rel="noopener">Behance</a></span>
+      </footer>
+    </div>
+  </section>
+</main>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---------- content ---------- */
+var STATIONS=[
+ ['STA.01','Summer Intern','Indian Railways · Banaras Locomotive Works','Jun 2022 to Jul 2022','Varanasi, India',['Mapped internal financial billing processes, identifying discrepancies that saved 15% in operational overhead.','Delivered data backed recommendations yielding a 10% structural process efficiency improvement.']],
+ ['STA.02','Trainee Software Developer','TechnoSapphire','Jan 2023 to Mar 2023','Noida, UP',['Implemented critical UI and UX improvements that reduced the standard visitor bounce rate by 15%.','Optimized front end performance, elevating user session engagement by 25%.']],
+ ['STA.03','Trainee Software Developer','Bharat School E Learning','Apr 2024 to Jul 2024','India (Remote)',['Engineered responsive React and Spring Boot interfaces showing interactive analytics and dashboards.','Executed performance A/B testing on site funnels, delivering an immediate 30% boost in user product satisfaction.']],
+ ['STA.04','Strategic Engine: Marketing & Operations','Through Black (Danke Group)','Aug 2024 to Jan 2026','Vadodara, Gujarat',['Led cross functional communication and strategic account strategy for enterprise brand acquisitions.','Managed Southeast Asia market research and coordinated bilateral negotiations, resulting in a Vietnam market entry MOU.','Directed physical stall execution and visual signaling materials for over 10 enterprise clients at ELECRAMA.']],
+ ['STA.05','Project & Marketing Associate','Riya Advisories (Danke Group)','Jun 2025 to Aug 2025','Vadodara, Gujarat',['Provided strategic consulting and research for enterprise clients inside the energy, pharma, and infra sectors.','Coordinated communication between engineering supervisors, site contractors, and corporate managers.','Structured clear EPC project documentation ensuring high level stakeholder compliance.']],
+ ['STA.06','AI Automation Consultant','Freelance','2025 to Present','Remote',['Architected custom enterprise AI workflows, eliminating the manual workload of 25 full time employees.','Delivered an 80% operational cost reduction in targeted processes through scalable API connections.','Engineered end to end no code automation pipelines to align cross system integrations.']],
+ ['STA.07','Growth Marketing & AI Automation Specialist','Opika','Feb 2026 to Present','United States (Remote)',['Designed and deployed AI automation pipelines that reduced manual operations by 40% across departments.','Architected dynamic content workflows powered by GPT-4 and Claude to scale outbound communication.','Optimized HubSpot CRM systems, enabling automated marketing triggers and pipeline scoring.']]
+];
+var METRICS=[[80,'%','operational cost reduction through enterprise AI workflows'],[25,'','full time workloads eliminated by one automation grid'],[40,'%','manual operations reduced across departments at Opika'],[30,'%','lift in user satisfaction from funnel A/B testing'],[10,'+','enterprise clients delivered on site at ELECRAMA'],[1,'','international MOU secured for Vietnam market entry']];
+var SYS=[
+ ['SYS.01','Enterprise Architecture','Enterprise AI Automation Workflow','A full enterprise grade automation grid that eliminated the workload of 25 full time employees and cut operational costs by 80%.',[['Objective','Remove the manual operations layer that was consuming leadership attention and capping how large a contract the client could responsibly pursue.'],['Build','Architected a full enterprise grade AI automation workflow spanning intake, processing, and delivery, connected through scalable API integrations and no code orchestration.'],['Impact','Eliminated the workload of 25 full time employees and reduced operational costs by 80%, freeing leadership to pursue and close significantly larger contracts.']]],
+ ['SYS.02','SMB Automation','AI Agent Suite: 3 Production Agents','Three production agents for Indian SMBs: Content Maker, Meeting Maker, and Query Replier, delivered WhatsApp native.',[['Build','A suite of three deployed AI agents covering content generation, meeting capture, and inbound query handling, delivered where Indian SMBs already work: WhatsApp.'],['Impact','Brought automation to businesses that never had an ops team, with zero new software for them to learn.']]],
+ ['SYS.03','Full Funnel Organic','Multi Layer SEO / AEO / GEO Audit System','A 4 layer audit framework covering traditional SEO, answer engines, AI search, and generative engines, deployed across client sites.',[['Build','A four layer audit framework spanning traditional SEO, answer engine optimization, AI search visibility, and generative engine optimization.'],['Impact','Surfaced ranking and crawl blockers across multiple client domains and rebuilt their path to organic and AI driven discovery.']]],
+ ['SYS.04','B2B Competitive Intelligence','SIGNAL: LinkedIn Content Intelligence','A LinkedIn analytics and intelligence tool for post performance, competitive benchmarking, and content strategy.',[['Build','An analytics layer over LinkedIn content: post performance, competitive benchmarking, and a data backed content strategy engine.'],['Impact','Turned a noisy feed into a measurable B2B intelligence channel.']]],
+ ['SYS.05','Autonomous Agents','BharatPulse: Autonomous AI News','A fully autonomous Twitter/X account covering India centric infrastructure, economy, startup, policy, and tech news.',[['Build','A fully autonomous social agent that researches, writes, and posts India centric infrastructure, economy, startup, policy, and tech news.'],['Impact','Runs unattended, proving end to end autonomous content operations.']]],
+ ['SYS.06','Productivity Agent','AI Email Tracking & Triage Agent','A Gmail integrated n8n agent for reply drafting, thread summarization, priority flagging, and inbox triage.',[['Build','A Gmail integrated n8n agent handling reply drafting, thread summarization, priority flagging, and inbox triage.'],['Impact','Compressed daily inbox load into a few decisions instead of an hour of reading.']]]
+];
+var STR=[
+ ['STR.01','Market Entry Strategy','UAV International Market Entry','UK and Europe entry strategy for a Tier 1 UAV manufacturer, built on risk signaling and trust architecture.',[['Context','A Tier 1 UAV manufacturer targeting UK and Europe entry, where procurement turns on trust and risk posture as much as product.'],['Approach','Built the entry strategy around risk signaling and trust architecture, anchored to the DroneX London exhibition presence.']]],
+ ['STR.02','Market Entry Consulting','Vietnam Market Entry & Channel Strategy','The strategic roadmap for Southeast Asian industrial expansion, closed with a formalized MOU.',[['Approach','Led Southeast Asia market research and bilateral negotiation support for industrial expansion.'],['Impact','Closed with a formalized Vietnam market entry MOU.']]],
+ ['STR.03','Product Strategy & Growth','Increasing AOV at Swiggy Instamart','Bridging the \u20B9420 to \u20B9607 AOV gap through psychological pricing and optimized upsell logic.',[['Approach','Diagnosed the basket gap and designed psychological pricing plus upsell logic to lift it.'],['Impact','Targeted a move in average order value from \u20B9420 toward \u20B9607.']]],
+ ['STR.04','Retail Strategy','Retail Expansion Roadmap','Regional footprint optimization and retail operations roadmap for physical store scaling.',[['Approach','Mapped regional footprint and retail operations for physical store scaling.'],['Impact','Produced a phased expansion roadmap balancing reach and unit economics.']]]
+];
+var RINGS=[
+ ['RING.01','AI & Automation',['n8n','Make.com','GPT-4','Claude','Gemini','Perplexity','WhatsApp API','Prompt Engineering','AI Agents','Vibe Coding','Zapier']],
+ ['RING.02','Marketing & GTM',['HubSpot','Instantly','Heyreach','Google Ads','YouTube Ads','LinkedIn Ads','SEO/AEO/GEO','Content Strategy','A/B Testing','Canva','Loom','Riverside.fm']],
+ ['RING.03','Analytics & Development',['Google Analytics 4','Microsoft Clarity','Amplitude','Looker Studio','SQL','React','HTML/CSS','JavaScript','Python','Spring Boot','Node.js','Figma','Adobe XD']],
+ ['RING.04','Strategy',['GTM Strategy','Brand Strategy','Competitive Intelligence','Market Entry','Stakeholder Management','Pipeline Management','Enterprise Sales','C Level Communication','Digital Transformation']]
+];
+var FOUND=[
+ ['McK','McKinsey Forward Program Alumni','McKinsey & Company','Completed 2025',null],
+ ['ASP','Aspire Leaders Program','Aspire Institute (Founded at Harvard University)','Cohort 5 · 2025',null],
+ ['KNIT','B.Tech: Information Technology','KNIT, Sultanpur','2019 to 2023',null],
+ ['CRT','Professional Industry Foundations','Global Multi Domain Standards','',['Google Digital Marketing','AWS Fundamentals','Cloud Computing','Software Testing']]
+];
+var ECHOES=[
+ [['There are minds that remind you why intelligence matters: minds that chase the new, the different, the unapologetically original.','Raunak is one of them. A thinker who brings rare ideas to the table; honest in execution; grounded in respect and learning at the workplace.','He is a brilliant addition to any team that dares to be different.','Keep chasing the unknown. Keep rising.'],'Siddhartha','Branding . Energy . A & D . Planet','December 12, 2025 · Managed Raunak directly'],
+ [['An exceptional strategist who translates complex AI technology into immediate business dividends. Raunak\u2019s automation pipelines did not just optimize our operational run rate, they fundamentally revolutionized our approach to enterprise sales and market speed.','If your organization wants to bypass standard agency overhead and build real automated leverage, he is the executive you partner with.'],'Enterprise & SMB Clients','SaaS, Energy & Infrastructure Sectors','Direct Consultation Feedback Summary']
+];
+
+/* ---------- build DOM ---------- */
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
+var dossiers={};
+(function(){
+  var st=document.getElementById('stations');
+  STATIONS.forEach(function(s,i){
+    var row=el('div','station');
+    var pts=s[5].map(function(p){return '<li>'+p+'</li>';}).join('');
+    row.innerHTML='<article class="scard reveal" data-station="'+i+'"><p class="sidx">'+s[0]+'</p><h3 class="srole">'+s[1]+'</h3><p class="sco">'+s[2]+'</p><p class="smeta">'+s[3]+' · '+s[4]+'</p><ul class="spts">'+pts+'</ul></article>';
+    st.appendChild(row);
+  });
+  var mt=document.getElementById('metrics');
+  METRICS.forEach(function(m){var d=el('div','metric reveal');d.innerHTML='<p class="mval" data-to="'+m[0]+'" data-suf="'+m[1]+'">0'+m[1]+'</p><p class="mlab">'+m[2]+'</p>';mt.appendChild(d);});
+  function caseCard(c,shelf){
+    var b=el('button','ccard reveal');
+    b.innerHTML='<span class="ctop"><span class="cd">'+c[0]+'</span><span class="cat">'+c[1]+'</span></span><h3>'+c[2]+'</h3><p class="sum">'+c[3]+'</p><span class="open">Open file</span>';
+    dossiers[c[0]]=c;
+    b.addEventListener('click',function(){openDossier(c[0]);});
+    document.getElementById(shelf).appendChild(b);
+  }
+  SYS.forEach(function(c){caseCard(c,'sys');});
+  STR.forEach(function(c){caseCard(c,'str');});
+  var rg=document.getElementById('rings');
+  RINGS.forEach(function(r,i){
+    var a=el('article','ring reveal');a.dataset.ring=i;
+    var tags=r[2].map(function(t){return '<span class="tag">'+t+'</span>';}).join('');
+    a.innerHTML='<div class="rtop"><span class="rcode">'+r[0]+'</span><span class="rcount">'+(r[2].length<10?'0':'')+r[2].length+' NODES</span></div><h3>'+r[1]+'</h3><div class="tags">'+tags+'</div>';
+    a.addEventListener('mouseenter',function(){setRing(i);});
+    rg.appendChild(a);
+  });
+  var fd=document.getElementById('found');
+  FOUND.forEach(function(f){
+    var d=el('article','fcard reveal');
+    var ex=f[4]?'<p class="inst">'+f[4].join(' · ')+'</p>':'';
+    var yr=f[3]?'<p class="yr">'+f[3]+'</p>':'';
+    d.innerHTML='<span class="fbadge">'+f[0]+'</span><h4>'+f[1]+'</h4><p class="inst">'+f[2]+'</p>'+ex+yr;
+    fd.appendChild(d);
+  });
+  var eg=document.getElementById('echoes-grid');
+  ECHOES.forEach(function(e,i){
+    var a=el('article','echo reveal');
+    var q=e[0].map(function(p){return '<p>'+p+'</p>';}).join('');
+    a.innerHTML='<p class="emark">Transmission 0'+(i+1)+' · Intercepted</p><blockquote>'+q+'</blockquote><p class="eauth">'+e[1]+'</p><p class="etitle">'+e[2]+'</p><p class="erel">'+e[3]+'</p>';
+    eg.appendChild(a);
+  });
+})();
+
+function openDossier(code){
+  var c=dossiers[code];if(!c)return;
+  var bg=el('div','dbg');
+  var secs=c[4].map(function(s){return '<div class="dsec"><h4>'+s[0]+'</h4><p>'+s[1]+'</p></div>';}).join('');
+  bg.innerHTML='<article class="dossier"><button class="dclose">Close · Esc</button><span class="ctop"><span class="cd">'+c[0]+'</span><span class="cat">'+c[1]+'</span></span><h2>'+c[2]+'</h2>'+secs+'</article>';
+  function close(){bg.remove();document.body.style.overflow='';window.removeEventListener('keydown',onk);}
+  function onk(e){if(e.key==='Escape')close();}
+  bg.addEventListener('click',function(e){if(e.target===bg)close();});
+  bg.querySelector('.dclose').addEventListener('click',close);
+  window.addEventListener('keydown',onk);
+  document.body.style.overflow='hidden';
+  document.body.appendChild(bg);
+  bg.querySelector('.dclose').focus();
+}
+
+/* copy email */
+document.getElementById('copyEmail').addEventListener('click',function(){
+  var em='srivastava.raunak7@gmail.com';var n=document.getElementById('note');
+  if(navigator.clipboard){navigator.clipboard.writeText(em).then(function(){n.textContent='> '+em+' COPIED';setTimeout(function(){n.innerHTML='&nbsp;';},2400);});}
+  else{location.href='mailto:'+em;}
+});
+
+/* reveal observer */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(function(e){io.observe(e);});
+
+/* metric count up */
+var mio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;mio.unobserve(e.target);var to=+e.target.dataset.to,suf=e.target.dataset.suf,t0=performance.now();(function tick(t){var k=Math.min(1,(t-t0)/1100),v=Math.round(to*(1-Math.pow(2,-10*k)));e.target.textContent=v+suf;if(k<1)requestAnimationFrame(tick);else e.target.textContent=to+suf;})(t0);});},{threshold:.4});
+document.querySelectorAll('.mval').forEach(function(e){mio.observe(e);});
+
+/* active rail node */
+var ids=['ch1','ch2','ch3','ch4','ch5'];
+var aio=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.intersectionRatio>0.25){var id=e.target.id;document.querySelectorAll('.rnode').forEach(function(n){n.setAttribute('aria-current',n.dataset.s===id?'true':'false');});}});
+},{threshold:[0,.25,.5]});
+ids.forEach(function(id){var s=document.getElementById(id);if(s)aio.observe(s);});
+
+/* ============================================================
+   THE WORLD · condensed three.js corridor
+   ============================================================ */
+var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var canvas=document.getElementById('c');
+var renderer,scene,camera,raf=0,running=false;
+var ringObjs=[],activeRing=0,wpIndex=0;
+var pointer={x:0,y:0},pt={x:0,y:0};
+var CAM_START=6,CAM_END=-258;
+var ZC={ch1:-18,ch2:-73,ch3:-134,ch4:-187,ch5:-234};
+var GRADE=[ [0.00,0x12030a,0x0a0205],[0.20,0x0a0710,0x05030a],[0.45,0x0d0608,0x070304],[0.72,0x081012,0x05080a],[1.00,0x140406,0x070203] ];
+
+function lerp(a,b,t){return a+(b-a)*t;}
+function clamp01(v){return v<0?0:v>1?1:v;}
+function lerpColor(a,b,t){var ar=(a>>16)&255,ag=(a>>8)&255,ab=a&255,br=(b>>16)&255,bg=(b>>8)&255,bb=b&255;return ((Math.round(lerp(ar,br,t))<<16)|(Math.round(lerp(ag,bg,t))<<8)|Math.round(lerp(ab,bb,t)));}
+function gradeAt(p){var i=0;for(;i<GRADE.length-1;i++){if(p<=GRADE[i+1][0])break;}var a=GRADE[Math.min(i,GRADE.length-1)],b=GRADE[Math.min(i+1,GRADE.length-1)];var t=b[0]===a[0]?0:clamp01((p-a[0])/(b[0]-a[0]));return {bg:lerpColor(a[1],b[1],t),fog:lerpColor(a[2],b[2],t)};}
+
+function glowTex(color){
+  var s=64,cv=document.createElement('canvas');cv.width=cv.height=s;var x=cv.getContext('2d');
+  var g=x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+  g.addColorStop(0,color);g.addColorStop(.4,color);g.addColorStop(1,'rgba(0,0,0,0)');
+  x.fillStyle=g;x.fillRect(0,0,s,s);var t=new THREE.Texture(cv);t.needsUpdate=true;return t;
+}
+var GT_RED=null,GT_EMBER=null,GT_WHITE=null;
+
+function sprite(tex,color,scale,z,x,y){
+  var m=new THREE.SpriteMaterial({map:tex,color:color,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:.9});
+  var s=new THREE.Sprite(m);s.scale.set(scale,scale,1);s.position.set(x||0,y||0,z||0);return s;
+}
+
+function pointsField(count,spreadX,spreadY,zMin,zMax,size,color){
+  var g=new THREE.BufferGeometry(),pos=new Float32Array(count*3);
+  for(var i=0;i<count;i++){pos[i*3]=(Math.random()*2-1)*spreadX;pos[i*3+1]=(Math.random()*2-1)*spreadY;pos[i*3+2]=zMin+Math.random()*(zMax-zMin);}
+  g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  var m=new THREE.PointsMaterial({color:color,size:size,sizeAttenuation:true,transparent:true,opacity:.7,blending:THREE.AdditiveBlending,depthWrite:false,map:GT_WHITE});
+  return new THREE.Points(g,m);
+}
+
+var groups={};
+function buildWorld(){
+  renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.75));
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  scene=new THREE.Scene();
+  scene.fog=new THREE.Fog(0x070203,14,140);
+  camera=new THREE.PerspectiveCamera(62,window.innerWidth/window.innerHeight,0.1,400);
+  camera.position.set(0,0,CAM_START);
+  GT_RED=glowTex('rgba(255,77,77,1)');GT_EMBER=glowTex('rgba(255,138,80,1)');GT_WHITE=glowTex('rgba(242,237,232,1)');
+
+  /* shared dust */
+  var dust=pointsField(1100,60,40,CAM_START,CAM_END,0.18,0xff8a50);
+  scene.add(dust);groups.dust=dust;
+
+  /* CH1 ember field + orbs */
+  var g1=new THREE.Group();
+  g1.add(pointsField(520,16,12,ZC.ch1+18,ZC.ch1-14,0.5,0xff8a50));
+  var orbs=[];
+  for(var i=0;i<3;i++){var sp=sprite(GT_RED,0xff5a4a,4.2,ZC.ch1,0,0);g1.add(sp);orbs.push(sp);}
+  g1.userData.orbs=orbs;
+  scene.add(g1);groups.ch1=g1;
+
+  /* CH2 circuit trace, manhattan path with 7 nodes */
+  var g2=new THREE.Group();
+  var nodesZ=[],startZ=ZC.ch2+40,endZ=ZC.ch2-44,n=7;
+  var pts=[],cx=0,cy=0;
+  for(var s=0;s<n;s++){
+    var z=startZ+(endZ-startZ)*(s/(n-1));
+    var nx=(s%2===0?-1:1)*(3+ (s*0.6));
+    pts.push(new THREE.Vector3(cx,cy,z+6));
+    pts.push(new THREE.Vector3(nx,cy,z+6));
+    pts.push(new THREE.Vector3(nx,cy,z));
+    cx=nx;nodesZ.push({x:nx,y:cy,z:z});
+  }
+  var pg=new THREE.BufferGeometry().setFromPoints(pts);
+  var pl=new THREE.Line(pg,new THREE.LineBasicMaterial({color:0xe53935,transparent:true,opacity:.5}));
+  g2.add(pl);
+  var stationNodes=[];
+  nodesZ.forEach(function(p){var sp=sprite(GT_RED,0x6a1518,2.4,p.z,p.x,p.y);g2.add(sp);stationNodes.push(sp);});
+  g2.userData.nodes=stationNodes;g2.userData.path=nodesZ;
+  var pulse=sprite(GT_WHITE,0xffffff,2.0,nodesZ[0].z,nodesZ[0].x,0);g2.add(pulse);g2.userData.pulse=pulse;
+  scene.add(g2);groups.ch2=g2;
+
+  /* CH3 monoliths + grid floor + bars */
+  var g3=new THREE.Group();
+  var grid=new THREE.GridHelper(120,40,0x3a0f12,0x230a0c);
+  grid.position.set(0,-9,ZC.ch3);grid.material.transparent=true;grid.material.opacity=.35;
+  g3.add(grid);
+  for(var m2=0;m2<6;m2++){
+    var w=2+Math.random()*2,h=10+Math.random()*16,d=2+Math.random()*2;
+    var box=new THREE.BoxGeometry(w,h,d);
+    var eg=new THREE.EdgesGeometry(box);
+    var ln=new THREE.LineSegments(eg,new THREE.LineBasicMaterial({color:0xe53935,transparent:true,opacity:.55}));
+    ln.position.set((m2-2.5)*7,(-9+h/2),ZC.ch3+24-m2*10);
+    g3.add(ln);
+    box.dispose();
+  }
+  for(var bI=0;bI<22;bI++){
+    var bh=0.6+Math.random()*5;
+    var bm=new THREE.Mesh(new THREE.BoxGeometry(0.5,bh,0.5),new THREE.MeshBasicMaterial({color:0xff8a50,transparent:true,opacity:.5}));
+    bm.position.set(-10+bI*0.92,-8.6+bh/2,ZC.ch3-18);g3.add(bm);
+  }
+  scene.add(g3);groups.ch3=g3;
+
+  /* CH4 core + 4 rings */
+  var g4=new THREE.Group();
+  var core=new THREE.Mesh(new THREE.IcosahedronGeometry(2.2,0),new THREE.MeshBasicMaterial({color:0xff4d4d,wireframe:true,transparent:true,opacity:.6}));
+  core.position.z=ZC.ch4;g4.add(core);g4.userData.core=core;
+  var counts=[11,12,13,9];
+  for(var r=0;r<4;r++){
+    var ring=new THREE.Group();ring.position.z=ZC.ch4;
+    var rad=5+r*2.2;
+    var torus=new THREE.Mesh(new THREE.TorusGeometry(rad,0.04,8,80),new THREE.MeshBasicMaterial({color:0xb03430,transparent:true,opacity:.5}));
+    ring.add(torus);
+    for(var k=0;k<counts[r];k++){
+      var ang=(k/counts[r])*Math.PI*2;
+      var node=sprite(GT_RED,0xb03430,1.1,0,Math.cos(ang)*rad,Math.sin(ang)*rad);
+      ring.add(node);
+    }
+    ring.rotation.x=0.6+r*0.4;ring.rotation.y=r*0.5;
+    ring.userData={torus:torus,base:0xb03430};
+    g4.add(ring);ringObjs.push(ring);
+  }
+  scene.add(g4);groups.ch4=g4;
+
+  /* CH5 sun + sparks */
+  var g5=new THREE.Group();
+  var sun=sprite(GT_EMBER,0xff7a3a,48,ZC.ch5-10,0,-4);sun.material.opacity=.0;g5.add(sun);g5.userData.sun=sun;
+  var sunCore=sprite(GT_RED,0xff4d4d,22,ZC.ch5-9,0,-4);sunCore.material.opacity=0;g5.add(sunCore);g5.userData.core=sunCore;
+  var sparks=pointsField(360,30,26,ZC.ch5+12,ZC.ch5-16,0.4,0xff8a50);g5.add(sparks);g5.userData.sparks=sparks;
+  scene.add(g5);groups.ch5=g5;
+
+  window.addEventListener('resize',onResize);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else if(!reduced)start();});
+}
+
+function onResize(){renderer.setSize(window.innerWidth,window.innerHeight);camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();}
+
+var progress=0;
+function setProgress(p){progress=p;}
+function setRing(i){activeRing=i;}
+function setWaypoint(i){wpIndex=i;}
+
+function cullByZ(group,centerZ){
+  var visible=Math.abs(camera.position.z-centerZ)<120;
+  group.visible=visible;return visible;
+}
+
+var t=0;
+function frame(){
+  if(!running)return;
+  t+=0.016;
+  pt.x+=(pointer.x-pt.x)*0.05;pt.y+=(pointer.y-pt.y)*0.05;
+  camera.position.z=lerp(CAM_START,CAM_END,progress);
+  camera.position.x=pt.x*2.2;camera.position.y=-pt.y*1.6;
+  camera.lookAt(0,0,camera.position.z-12);
+
+  var gr=gradeAt(progress);
+  scene.background=new THREE.Color(gr.bg);
+  scene.fog.color.setHex(gr.fog);
+
+  if(cullByZ(groups.ch1,ZC.ch1)){
+    groups.ch1.userData.orbs.forEach(function(o,i){var a=t*0.5+i*2.1,rad=5+i*1.6;o.position.set(Math.cos(a)*rad,Math.sin(a*1.3)*rad*0.6,ZC.ch1+Math.sin(a)*3);});
+  }
+  if(cullByZ(groups.ch2,ZC.ch2)){
+    var path=groups.ch2.userData.path,pulse=groups.ch2.userData.pulse,nodes=groups.ch2.userData.nodes;
+    var localP=clamp01((progress-0.18)/(0.42-0.18));
+    var f=localP*(path.length-1),idx=Math.floor(f),fr=f-idx,a=path[idx],b=path[Math.min(idx+1,path.length-1)];
+    pulse.position.set(lerp(a.x,b.x,fr),0,lerp(a.z,b.z,fr));
+    nodes.forEach(function(nd,i){var on=i<=Math.round(f);nd.material.color.setHex(on?0xff4d4d:0x6a1518);nd.scale.setScalar(on?3.0:2.0);});
+  }
+  if(cullByZ(groups.ch3,ZC.ch3)){
+    groups.ch3.children.forEach(function(ch){if(ch.geometry&&ch.geometry.type==='BoxGeometry'){ch.scale.y=1;}});
+  }
+  if(cullByZ(groups.ch4,ZC.ch4)){
+    groups.ch4.userData.core.rotation.x=t*0.4;groups.ch4.userData.core.rotation.y=t*0.55;
+    ringObjs.forEach(function(ring,i){
+      ring.rotation.z=t*(0.12+i*0.05)*(i%2?1:-1);
+      var hot=i===activeRing;
+      var col=hot?0xff6b5e:0xb03430;
+      ring.userData.torus.material.color.setHex(col);
+      ring.userData.torus.material.opacity=hot?.9:.5;
+      ring.children.forEach(function(c){if(c.isSprite){c.material.color.setHex(col);c.scale.setScalar(hot?1.5:1.1);}});
+    });
+  }
+  if(cullByZ(groups.ch5,ZC.ch5)){
+    var lp=clamp01((progress-0.82)/(1-0.82));
+    groups.ch5.userData.sun.material.opacity=lp*.85;
+    groups.ch5.userData.core.material.opacity=lp*.9;
+    groups.ch5.userData.sun.position.y=-4+lp*6;
+    groups.ch5.userData.core.position.y=-4+lp*6;
+    var sp=groups.ch5.userData.sparks,pos=sp.geometry.attributes.position;
+    for(var i=0;i<pos.count;i++){var y=pos.getY(i)+0.06;if(y>26)y=-26;pos.setY(i,y);}pos.needsUpdate=true;
+  }
+
+  renderer.render(scene,camera);
+  raf=requestAnimationFrame(frame);
+}
+
+function start(){if(running)return;running=true;raf=requestAnimationFrame(frame);}
+function stop(){running=false;cancelAnimationFrame(raf);}
+
+function onScroll(){var max=document.documentElement.scrollHeight-window.innerHeight;var p=max>0?clamp01(window.scrollY/max):0;document.documentElement.style.setProperty('--p',p.toFixed(4));setProgress(p);}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll);
+
+/* station waypoint sync */
+var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setWaypoint(+e.target.dataset.station);});},{rootMargin:'-42% 0px -42% 0px'});
+document.querySelectorAll('[data-station]').forEach(function(e){sio.observe(e);});
+var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setRing(+e.target.dataset.ring);});},{rootMargin:'-38% 0px -38% 0px'});
+document.querySelectorAll('[data-ring]').forEach(function(e){rio.observe(e);});
+
+try{
+  buildWorld();onScroll();
+  if(reduced){running=true;frame();running=false;renderer.render(scene,camera);}
+  else{start();}
+}catch(err){
+  console.error(err);
+  /* WebGL unavailable: the content below stays fully readable. */
+}
+</script>
+</body>
+</html>
